@@ -77,5 +77,4 @@ class Item < ApplicationRecord
       }
       return price_items
   end
-  
 end

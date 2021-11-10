@@ -102,7 +102,6 @@ class Public::SellItemsController < ApplicationController
 
   def order_finish
     @sell_item = SellItem.find(params[:id])
-
     if cookies[:payment_method] == "credit_card" && params["payjp-token"].blank?
 
       flash[:danger] = "クレジット情報を入力してください"
@@ -112,23 +111,24 @@ class Public::SellItemsController < ApplicationController
       item = @sell_item.item
       item.item_status = "discarded"
 
-      if @sell_item.update(buy_item_params) && item.save
-          pay if cookies[:payment_method] == "credit_card"
-          cookies.delete :payment_method
-          # 通知機能の記述
-          @sell_item.create_notification_buy!(current_user)
-          NotificationMailer.send_mail(@sell_item.buyer, @sell_item).deliver_now
-          NotificationMailer.seller_send_mail(@sell_item.seller, @sell_item).deliver_now
-          redirect_to sell_items_order_complete_path(params[:id])
-      else
-        cookies.delete :payment_method
-        redirect_to sell_item_path(@sell_item), alert: '購入ができませんでした。最初からやり直してください。'
+      ActiveRecord::Base.transaction do
+        @sell_item.update!(buy_item_params)
+        item.save!
+        pay if cookies[:payment_method] == "credit_card"
       end
 
+      cookies.delete :payment_method
+      # 通知機能の記述
+      @sell_item.create_notification_buy!(current_user)
+      NotificationMailer.send_mail(@sell_item.buyer, @sell_item).deliver_now
+      NotificationMailer.seller_send_mail(@sell_item.seller, @sell_item).deliver_now
+      redirect_to sell_items_order_complete_path(params[:id])
     else
       redirect_to root_path, notice: '不正な遷移は許可されていません'
     end
-
+  rescue => e
+    cookies.delete :payment_method
+    redirect_to sell_item_path(@sell_item), alert: '購入ができませんでした。最初からやり直してください。'
   end
 
   def order_complete
