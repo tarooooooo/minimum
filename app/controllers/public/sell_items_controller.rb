@@ -124,13 +124,12 @@ class Public::SellItemsController < ApplicationController
         cookies.delete :payment_method
         redirect_to sell_item_path(@sell_item), alert: '購入ができませんでした。最初からやり直してください。'
       end
-      
+
     else
       redirect_to root_path, notice: '不正な遷移は許可されていません'
     end
 
   end
-
 
   def order_complete
     @sell_item = SellItem.find(params[:id])
