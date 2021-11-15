@@ -110,7 +110,7 @@ class Public::SellItemsController < ApplicationController
     elsif cookies[:payment_method].present?
       item = @sell_item.item
       item.item_status = "discarded"
-
+      
       ActiveRecord::Base.transaction do
         @sell_item.update!(buy_item_params)
         item.save!
@@ -186,9 +186,14 @@ class Public::SellItemsController < ApplicationController
     currency: 'jpy',
     metadata:{ sell_item: @sell_item.id }
     )
+    
+    rescue => e
+      self.errors.add(:token, 'charge error')
+      raise ActiveRecord::Rollback
   end
-
+  
   private
+  
 
   def order_status_params
     params.require(:sell_item).permit(:order_status)
