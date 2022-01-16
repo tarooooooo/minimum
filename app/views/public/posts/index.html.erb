@@ -1,0 +1,19 @@
+<div class="container">
+  <% @posts.each do |post| %>
+    <%= link_to post_path(post) do %>
+      <div class="card" style="width:600px;">
+        <div class="row no-gutters">
+          <div class="col-lg-6">
+            <%= image_tag 'test_gray_box.png' %>
+          </div>
+          <div class="col-lg-6">
+            <div class="card-body">
+              <h4 class="card-title"><%= post.title %></h4>
+              <p class="card-text"><%= post.content %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

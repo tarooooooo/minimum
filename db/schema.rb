@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_26_144542) do
+ActiveRecord::Schema.define(version: 2022_01_16_072048) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -141,6 +141,15 @@ ActiveRecord::Schema.define(version: 2021_09_26_144542) do
     t.datetime "updated_at", null: false
     t.integer "comment_id"
     t.bigint "sell_item_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|

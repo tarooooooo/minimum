@@ -84,3 +84,9 @@ User.create!(
     address: '東京都0-0-0',
     phone_number: '12345678909'
 )
+
+Post.create!(
+  user_id: 1,
+  title: 'SDGsにつながる衣類管理術',
+  content: 'こちらにテキストが入ります。こちらにテキストが入ります。こちらにテキストが入ります。'
+)

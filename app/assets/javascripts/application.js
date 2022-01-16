@@ -19,6 +19,7 @@
 //= require turbolinks
 //= require jquery.raty.js
 //= require select2
+
 //= require_tree .
 //= require_self
 

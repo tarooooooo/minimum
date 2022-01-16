@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :public do
     get 'card/new'
     get 'card/show'
@@ -85,6 +86,7 @@ Rails.application.routes.draw do
   resources :messages, only: [:create, :destroy], module: :public
   resources :rooms, only: [:create, :index, :show], module: :public
   resources :cards, only: [:new, :create]
+  resources :posts, module: :public
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 end

@@ -86,7 +86,8 @@ gem 'payjp'
 gem'lazy_high_charts'
 gem 'select2-rails'
 gem 'rmagick'
-
+gem 'simple_form'
+gem 'summernote-rails', '~> 0.8.10.0'
 # gem 'uglifier' ,"1.3.0"
 gem "pundit"
 group :production do
