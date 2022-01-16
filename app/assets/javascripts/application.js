@@ -19,7 +19,8 @@
 //= require turbolinks
 //= require jquery.raty.js
 //= require select2
-
+//= require summernote/summernote-bs4.min
+//= require summernote-init
 //= require_tree .
 //= require_self
 
