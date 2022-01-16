@@ -5,14 +5,14 @@
 
         <%= form_with model: @post, local:true do |f| %>
 
-          <div class="field py-3">
-            <%= f.label :タイトル %><br />
+          <div class="form-group">
+            <p class="font-weight-bold"><%= f.label :タイトル %></p>
             <%= f.text_field :title, placeholder: 'タイトル', class: 'form-control' %>
           </div>
 
-          <div class="field py-3">
-            <%= f.label :内容 %><br />
-            <%= f.text_area :content, placeholder: "内容", class:"form-control" %>
+          <div class="form-group">
+            <p class="font-weight-bold"><%= f.label :投稿内容 %></p>
+            <p><%= f.text_area :content, class:"form-control w-100", 'data-provider': :summernote %></p>
           </div>
 
           <div class="new-item-btn py-3">
