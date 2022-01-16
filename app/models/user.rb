@@ -41,6 +41,8 @@ class User < ApplicationRecord
 
   has_one :card, dependent: :destroy
 
+  has_many :posts, dependent: :destroy
+
   def already_liked?(sell_item)
     self.likes.exists?(sell_item_id: sell_item.id)
   end
