@@ -51,11 +51,12 @@ class Public::SellItemsController < ApplicationController
   def create
     @sell_item = SellItem.new(sell_item_params)
     @sell_item.seller_id = current_user.id
-
+    
+    item = Item.find(params[:item_id])
+    @sell_item.item_id = item.id
     if @sell_item.save
-      @item = @sell_item.item
-      @item.item_status = "on_sell"
-      @item.save
+      item.item_status = "on_sell"
+      item.save
       flash[:success] = "出品が完了しました。"
       redirect_to sell_items_path
     else

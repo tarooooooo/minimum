@@ -16,7 +16,7 @@
 
   <div class ="row justify-content-center">
     <div class="col-lg-6 col-md-10 col-sm-10 item-new-fields">
-      <%= form_with model: @sell_item, local:true do |f| %>
+      <%= form_with model: @sell_item, url: item_sell_item_path(@item), local:true do |f| %>
 
         <div class="field py-3">
           <%= f.label :アイテム画像 %><br />
@@ -92,10 +92,6 @@
             <%= f.radio_button :delivery_days, :days4_7 %>
             <%= f.label '4日~7日で発送' %>
           </div>
-        </div>
-
-        <div class="field py-3">
-          <%= f.hidden_field :item_id, value: @item.id %>
         </div>
 
         <div class="new-item-btn py-3">
